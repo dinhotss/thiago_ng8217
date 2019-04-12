@@ -1,0 +1,36 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+  <cmail-header></cmail-header>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div class="mdl-grid">
+        <form [formGroup]="formCadastro" (ngSubmit)="handleCadastroUsuario()"> 
+          <cmail-form-group idCampo="nome" msg="Informar um nome é obrigatório!" [ctrl]="formCadastro"> 
+              <input formControlName="nome" required type="text" name="nome" cmailFormField>
+              <span *ngIf="formCadastro.get('nome').getError('minlength')" class="mdl-textfield__error">O nome deve conter ao menos {{formCadastro.get('nome').getError('minlength')['requiredLength']}} cararcters</span>
+          </cmail-form-group>
+          <cmail-form-group idCampo="username" msg="Informar um usuario é obrigatório!" [ctrl]="formCadastro">
+              <input formControlName="username" required type="text" name="username" cmailFormField>
+              <span *ngIf="formCadastro.get('username').getError('minlength')" class="mdl-textfield__error">O nome deve conter ao menos {{formCadastro.get('username').getError('minlength')['requiredLength']}} cararcters</span>
+          </cmail-form-group>
+          <cmail-form-group idCampo="senha" msg="Informar um senha é obrigatório!" [ctrl]="formCadastro">
+              <input formControlName="senha" required type="password" name="senha" cmailFormField>
+          </cmail-form-group>
+          <cmail-form-group idCampo="telefone" msg="Informar um telefone é obrigatório!" [ctrl]="formCadastro">
+            <input formControlName="telefone" required type="telefone" name="telefone" cmailFormField maxlength="10">
+            <span *ngIf="telefone.errors && !telefone.getError('required')" class="mdl-textfield__error">Informar um telefone valido!</span>
+          </cmail-form-group>
+          <cmail-form-group idCampo="avatar" msg="Informar um avatar é obrigatório!" [ctrl]="formCadastro">
+              <input formControlName="avatar" required type="text" name="avatar" cmailFormField>
+          </cmail-form-group>
+          <br>
+          <div class="mdl-card__actions">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+              Cadastrar
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
