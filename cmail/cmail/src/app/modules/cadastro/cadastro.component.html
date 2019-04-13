@@ -2,8 +2,13 @@
   <cmail-header></cmail-header>
   <main class="mdl-layout__content">
     <div class="page-content">
-      <div class="mdl-grid">
-        <form [formGroup]="formCadastro" (ngSubmit)="handleCadastroUsuario()"> 
+        <ul *ngIf="mensagensErro" class= "mdl-textfield is-invalid">
+            <li class="mdl-textfield__error">
+              Erro: {{mensagensErro.message}}
+            </li>
+        </ul>
+        <div class="mdl-grid">
+          <form [formGroup]="formCadastro" (ngSubmit)="handleCadastroUsuario()"> 
           <cmail-form-group idCampo="nome" msg="Informar um nome é obrigatório!" [ctrl]="formCadastro"> 
               <input formControlName="nome" required type="text" name="nome" cmailFormField>
               <span *ngIf="formCadastro.get('nome').getError('minlength')" class="mdl-textfield__error">O nome deve conter ao menos {{formCadastro.get('nome').getError('minlength')['requiredLength']}} cararcters</span>
@@ -21,6 +26,7 @@
           </cmail-form-group>
           <cmail-form-group idCampo="avatar" msg="Informar um avatar é obrigatório!" [ctrl]="formCadastro">
               <input formControlName="avatar" required type="text" name="avatar" cmailFormField>
+              <span *ngIf="avatar.errors && !avatar.getError('required')" class="mdl-textfield__error">Informar uma URL valida!</span>
           </cmail-form-group>
           <br>
           <div class="mdl-card__actions">

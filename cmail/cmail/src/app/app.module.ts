@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FormsModule, ReactiveFormsModule } from  '@angular/forms';
-import { LoginComponent } from './modules/login/login.component';
-import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
+import { FormsModule } from  '@angular/forms';
 import { CadastroComponent } from './modules/cadastro/cadastro.component'
 import { ModuloRoteamento } from './app.routes';
 import { FormGroupComponent } from './components/form-group/form-group.component';
@@ -16,9 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
-    CaixaDeEntradaComponent,
-    CadastroComponent,
     FormGroupComponent,
     FormFieldDirective
   ],
@@ -26,7 +21,6 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     ModuloRoteamento,
-    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],
