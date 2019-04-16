@@ -29,25 +29,25 @@
   </span>
 
   <header class="headerGlobal__userInfo">]
-    <img src="http://placehold.it/48x48" class="headerGlobal__userInfoAvatar">
+    <img [src]="url" class="headerGlobal__userInfoAvatar">
     <div class="headerGlobal__userInfoData">
-      <h5 class="headerGlobal__userInfoDataName">Pessoa de Tal</h5>
-      <span>pesso.al@cmail.br</span>
+      <h5 class="headerGlobal__userInfoDataName">{{nome}}</h5>
+      <span>{{email}}</span>
       <div class="mdl-layout-spacer"></div>
     </div>
   </header>
 
   <nav class="mdl-navigation">
-    <a class="mdl-navigation__link" routerLink="">
+    <a class="mdl-navigation__link" [routerLink]="['..','login']">
       <span class="material-icons">person</span> Login
     </a>
-    <a class="mdl-navigation__link" routerLink="/cadastro">
+    <a class="mdl-navigation__link" [routerLink]="['..','cadastro']">
       <span class="material-icons">create</span> Cadastro
     </a>
-    <a class="mdl-navigation__link" routerLink="/inbox">
+    <a class="mdl-navigation__link" [routerLink]="['..','inbox']">
       <span class="material-icons">inbox</span> Caixa de Entrada
     </a>
-    <a class="mdl-navigation__link" routerLink="">
+    <a class="mdl-navigation__link" (click)="logout()" [routerLink]="['..','']">
       <span class="material-icons">logout</span> Logout
     </a>
   </nav>

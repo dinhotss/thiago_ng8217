@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { URL } from 'url';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
     selector: 'cmail-header',
@@ -9,7 +11,24 @@ import { Component } from "@angular/core";
     ]
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+    url: string = "http://placehold.it/48x48";
+    nome: string = "Pessoa de Tal";
+    email: string = "pesso.al@cmail.br";
+
+    ngOnInit(): void {
+        let url = localStorage.getItem('avatar');
+        let nome = localStorage.getItem('nome');
+        let email = localStorage.getItem('email');
+       
+        if(url)
+            this.url = url;
+        if(url)
+            this.nome = nome;
+        if(url)
+            this.email = email;
+
+    }
 
     private _isMenuOpen = false;
 
@@ -19,5 +38,9 @@ export class HeaderComponent {
 
     get isMenuOpen() {
         return this._isMenuOpen;
+    }
+
+    logout() {
+        localStorage.clear();
     }
 }

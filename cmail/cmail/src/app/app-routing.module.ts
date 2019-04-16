@@ -6,7 +6,7 @@ const listaDeRotas: Routes = [
     { path: 'login', loadChildren: 'src/app/modules/login/login.module#LoginModule' },
     { path: 'login/:username', loadChildren: 'src/app/modules/login/login.module#LoginModule' },
     { path: 'cadastro', loadChildren: "src/app/modules/cadastro/cadastro.module#CadastroModule" },
-    { path: 'inbox', loadChildren: 'src/app/module/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule' },
+    { path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule' },
     { path: '**', redirectTo: 'login'}
 ]
 

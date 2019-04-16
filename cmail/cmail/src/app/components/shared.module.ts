@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HearderComponent } from './header/header.component'
+import { HeaderComponent } from './header/header.component'
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormFieldDirective} from './form-group/form-field-directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [HearderComponent, FormGroupComponent, FormFieldDirective],
+  declarations: [HeaderComponent, FormGroupComponent, FormFieldDirective],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
-  exports: [HearderComponent, FormGroupComponent, FormFieldDirective]
+  exports: [HeaderComponent, FormGroupComponent, FormFieldDirective]
 })
 export class SharedModule { }
