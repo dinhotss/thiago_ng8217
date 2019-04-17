@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
   selector: 'app-caixa-de-entrada',
   templateUrl: './caixa-de-entrada.component.html',
   styles: [`
+    ul{
+      width: 100%
+    }
     ul, li {
       list-style-type: nome;
       margin: 0;
@@ -30,6 +33,11 @@ export class CaixaDeEntradaComponent implements OnInit {
   constructor(private emailService: EmailService) { }
 
   ngOnInit() {
+    this.emailService.buscar().subscribe(
+      (resposta) => {
+        this.emailList = resposta;
+      }
+    )
   }
 
   get isNewEMailFormOpen() {
@@ -50,13 +58,10 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     this.emailService.enviar(this.email).subscribe(
       (response: any) => {
-        //this.emailList = [];
-        /*this.emailService.buscar().pipe(map((response) => {
+        this.emailService.buscar().subscribe((response: any[]) => {
           console.log(response);
-          this.emailList.push(response);
-          return true;
-        }));*/
-        this.emailList.push(response);
+          this.emailList = response;
+        });
         this.email = new Email(null);
         formEmail.resetForm();
         this.toggleNewEmailForm();

@@ -25,10 +25,10 @@ export class EmailService {
   buscar() {
     console.log('');
     return this.httpCliente.get(this.api, {headers: this.cabecalho}).pipe(
-      map((resposta: any) => {
-        console.log(resposta);
-        return new Email(resposta) }
-        )
-    );
+      map((resposta: any[]) =>
+          resposta.map(x => {
+            return new Email(x);
+          })
+      )); 
   }
 }
