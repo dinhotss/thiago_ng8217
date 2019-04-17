@@ -1,21 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from 'src/app/model/email';
 import { NgForm } from '@angular/forms';
+import { EmailService } from 'src/app/services/email.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-caixa-de-entrada',
-  templateUrl: './caixa-de-entrada.component.html'
+  templateUrl: './caixa-de-entrada.component.html',
+  styles: [`
+    ul, li {
+      list-style-type: nome;
+      margin: 0;
+      padding: 0;
+    }
+  `]
 })
 export class CaixaDeEntradaComponent implements OnInit {
   private _isNewEmailFormOpen = false;
   readonly regexEmail = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
   emailList: Email[] = [];
-  email = new Email();
+  email = new Email(null);
   invalid = false;
 
   checkedAll = false;
 
-  constructor() { }
+  mensagensErro;
+  
+  constructor(private emailService: EmailService) { }
 
   ngOnInit() {
   }
@@ -36,12 +48,25 @@ export class CaixaDeEntradaComponent implements OnInit {
     if(this.invalid)
       return;
 
-    this.emailList.push(this.email);
-    this.emailList.forEach(x => {x.checked = this.checkedAll});
-    this.email = new Email();
+    this.emailService.enviar(this.email).subscribe(
+      (response: any) => {
+        //this.emailList = [];
+        /*this.emailService.buscar().pipe(map((response) => {
+          console.log(response);
+          this.emailList.push(response);
+          return true;
+        }));*/
+        this.emailList.push(response);
+        this.email = new Email(null);
+        formEmail.resetForm();
+        this.toggleNewEmailForm();
+      }
+      ,(responseError: HttpErrorResponse) => {
+        this.mensagensErro = responseError;
 
-    formEmail.resetForm();
-    this.toggleNewEmailForm();
+      }
+    )
+    
   }
 
 

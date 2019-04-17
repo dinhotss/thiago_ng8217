@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component'
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormFieldDirective} from './form-group/form-field-directive';
 import { RouterModule } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 @NgModule({
   declarations: [HeaderComponent, FormGroupComponent, FormFieldDirective],
@@ -11,6 +12,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule
   ],
-  exports: [HeaderComponent, FormGroupComponent, FormFieldDirective]
+  exports: [HeaderComponent, FormGroupComponent, FormFieldDirective],
+  providers: [
+    LoginService
+  ]
 })
 export class SharedModule { }

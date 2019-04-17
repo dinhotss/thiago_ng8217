@@ -4,6 +4,7 @@ import { HttpClient, HttpResponseBase, HttpErrorResponse } from '@angular/common
 import { map, catchError} from 'rxjs/operators';
 import { User } from '../../model/dto/input/user';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -24,7 +25,7 @@ export class CadastroComponent implements OnInit {
     avatar: this.avatar
   })
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router, private usuario: UserService) { }
 
   ngOnInit() {
   }
@@ -34,19 +35,14 @@ export class CadastroComponent implements OnInit {
 
     if(this.formCadastro.valid){
       console.log(this.formCadastro.value);
-      this.httpClient.post('http://localhost:3200/users', new User(this.formCadastro.value)).subscribe(
-        (response) => {
-          console.log(response)
-          //this.formCadastro.reset();
-          this.router.navigate(['/login/', this.formCadastro.get('username').value]);
+      this.usuario.cadastrar(new User(this.formCadastro.value)).subscribe(
+        (response: any) => {
+          this.router.navigate(['/login/', response.email]);
         }
         ,(responseError: HttpErrorResponse) => {
-          console.log(responseError);
           this.mensagensErro = responseError;
         },
-        
       )
-
     }
     else {
       this.validarTodosCampos(this.formCadastro);

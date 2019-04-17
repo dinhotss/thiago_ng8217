@@ -5,11 +5,10 @@
     <div class="mdl-grid">
       <ul>
         <li *ngFor="let email of emailList">
-          <input type="checkbox" [checked]="email.checked">
-          <strong>Para:</strong>{{email.destinatario}} <br>
-          <strong>Assunto:</strong>{{email.assunto}}
+          <cmail-list-item [destinatario]="email.destinatario" [assunto]="email.assunto" [data]="email.data"></cmail-list-item>
         </li>
       </ul>
+      
       <!-- Floating Multiline Textfield -->
       <button class="globalFab tooltip btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
         role="tooltip" aria-label="Criar novo email" (click)='toggleNewEmailForm()'>

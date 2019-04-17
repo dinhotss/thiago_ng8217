@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { URL } from 'url';
-import { stringify } from '@angular/compiler/src/util';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
     selector: 'cmail-header',
@@ -15,6 +14,11 @@ export class HeaderComponent implements OnInit {
     url: string = "http://placehold.it/48x48";
     nome: string = "Pessoa de Tal";
     email: string = "pesso.al@cmail.br";
+    loginService: LoginService;
+
+    constructor(private _loginService: LoginService) {
+        this.loginService = _loginService;
+    }
 
     ngOnInit(): void {
         let url = localStorage.getItem('avatar');
@@ -40,7 +44,4 @@ export class HeaderComponent implements OnInit {
         return this._isMenuOpen;
     }
 
-    logout() {
-        localStorage.clear();
-    }
 }
