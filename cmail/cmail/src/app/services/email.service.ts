@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponseBase, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Email } from '../model/email';
 import { EmailDto } from '../model/dto/input/emailDto'
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class EmailService {
@@ -23,12 +23,15 @@ export class EmailService {
   }
 
   buscar() {
-    console.log('');
     return this.httpCliente.get(this.api, {headers: this.cabecalho}).pipe(
       map((resposta: any[]) =>
-          resposta.map(x => {
-            return new Email(x);
+          resposta.map(email => {
+            return new Email(email);
           })
       )); 
+  }
+
+  remover(id) {
+    return this.httpCliente.delete(this.api + '/' + id, {headers: this.cabecalho}); 
   }
 }

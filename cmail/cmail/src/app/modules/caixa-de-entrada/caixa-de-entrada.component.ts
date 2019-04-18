@@ -2,20 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Email } from 'src/app/model/email';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 
 @Component({
   selector: 'app-caixa-de-entrada',
   templateUrl: './caixa-de-entrada.component.html',
   styles: [`
     ul{
-      width: 100%
+      flex-grow:1;
     }
     ul, li {
       list-style-type: nome;
       margin: 0;
       padding: 0;
+    }
+    .globalFab {
+      right: 50px !important;
     }
   `]
 })
@@ -49,6 +51,7 @@ export class CaixaDeEntradaComponent implements OnInit {
   }
 
   handleNewEmail(formEmail: NgForm) {
+    console.log('a');
     this.invalid  = formEmail.invalid;
     
     //formEmail.control.get('para').markAsTouched();
@@ -58,10 +61,7 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     this.emailService.enviar(this.email).subscribe(
       (response: any) => {
-        this.emailService.buscar().subscribe((response: any[]) => {
-          console.log(response);
-          this.emailList = response;
-        });
+        this.emailList.push(response);
         this.email = new Email(null);
         formEmail.resetForm();
         this.toggleNewEmailForm();
@@ -74,5 +74,21 @@ export class CaixaDeEntradaComponent implements OnInit {
     
   }
 
+  handleRemoverEmail(eventVaiRemover) {
+    if(eventVaiRemover.remover) {
+      this.emailService.remover(eventVaiRemover.id).subscribe(
+        (reposta: HttpResponseBase) => {
+          this.emailList = this.emailList.filter(x => x.id != eventVaiRemover.id);
+        },
+        (erro: HttpErrorResponse) => {
+          this.mensagensErro
+        }
+      )
+    }
+  }
+
+  getEmails() {
+    return this.emailList.sort((a: Email, b: Email) => Date.parse(b.data) > Date.parse(a.data) ? 1 : -1);
+  }
 
 }

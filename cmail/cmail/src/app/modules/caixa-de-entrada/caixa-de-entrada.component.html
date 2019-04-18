@@ -4,9 +4,7 @@
       <div class="page-content">
     <div class="mdl-grid">
       <ul>
-        <li *ngFor="let email of emailList">
-          <cmail-list-item [destinatario]="email.destinatario" [assunto]="email.assunto" [data]="email.data"></cmail-list-item>
-        </li>
+          <cmail-list-item *ngFor="let email of getEmails()" [email]="email" (eventoRemover)="handleRemoverEmail($event) "></cmail-list-item>
       </ul>
       
       <!-- Floating Multiline Textfield -->
@@ -62,7 +60,7 @@
               Enviar
             </button>
           </div>
-          <div class="newEmail__topMenu mdl-card__menu">
+          <div class="newEmail__topMenu mdl-card__menu pr-3">
             <button type="button" class="mdl-button mdl-button--icon" (click)="toggleNewEmailForm()">
               <span class="material-icons">close</span>
             </button>

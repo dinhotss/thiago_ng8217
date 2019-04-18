@@ -3,22 +3,22 @@
   <span class="mdl-list__item-primary-content">
     <a class="emailList__itemLink">
       <i class="material-icons mdl-list__item-avatar">person</i>
-      <span>{{destinatario}}</span>
+      <span>{{emailData.destinatario}}</span>
       <span class="emailList__itemText mdl-list__item-text-body">
-        {{assunto}}
+        {{emailData.assunto}}: {{emailData.conteudo | slice:0:140}}<span *ngIf="emailData.conteudo?.length > 140">...</span>
       </span>
     </a>
   </span>
   <span class="mdl-list__item-secondary-content">
     <a class="emailList__itemLink" tabindex="-1">
       <span class="emailList__itemDate">
-        {{data}}
+        {{emailData.data | date:'dd/MM/yyyy'}} ás {{emailData.data | date:'HH:mm'}}
       </span>
     </a>
   </span>
 
   <span class="emailList__itemMenu">
-    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" (click)="removerEmail($event)">
       <i class="material-icons">delete</i>
     </button>
   </span>
