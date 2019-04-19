@@ -3,6 +3,8 @@ import { Email } from 'src/app/model/email';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
 import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
+import { PageService } from 'src/app/services/page.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-caixa-de-entrada',
@@ -31,10 +33,15 @@ export class CaixaDeEntradaComponent implements OnInit {
   checkedAll = false;
 
   mensagensErro;
+
+  valorFiltro: string;
   
-  constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService, private pageService: PageService, private headerService: HeaderService) { 
+    this.headerService.getValorFiltro().subscribe(valor => this.valorFiltro = valor);
+  }
 
   ngOnInit() {
+    this.pageService.definirTitulo('Caixa de Entrada');
     this.emailService.buscar().subscribe(
       (resposta) => {
         this.emailList = resposta;
@@ -60,7 +67,7 @@ export class CaixaDeEntradaComponent implements OnInit {
       return;
 
     this.emailService.enviar(this.email).subscribe(
-      (response: any) => {
+      (response: Email) => {
         this.emailList.push(response);
         this.email = new Email(null);
         formEmail.resetForm();
@@ -87,8 +94,11 @@ export class CaixaDeEntradaComponent implements OnInit {
     }
   }
 
-  getEmails() {
-    return this.emailList.sort((a: Email, b: Email) => Date.parse(b.data) > Date.parse(a.data) ? 1 : -1);
+  getEmails(): Email[] {
+    return this.emailList.filter(email => !this.valorFiltro || 
+                                          (email.destinatario.toLowerCase().indexOf(this.valorFiltro.toLowerCase()) >= 0) ||
+                                          (email.assunto.toLowerCase().indexOf(this.valorFiltro.toLowerCase()) >= 0) ||
+                                          (email.conteudo.toLowerCase().indexOf(this.valorFiltro.toLowerCase()) >= 0) ).sort((a: Email, b: Email) => Date.parse(b.data) > Date.parse(a.data) ? 1 : -1);
   }
 
 }

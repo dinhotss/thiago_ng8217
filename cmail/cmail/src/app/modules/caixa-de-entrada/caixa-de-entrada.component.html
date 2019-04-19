@@ -4,7 +4,7 @@
       <div class="page-content">
     <div class="mdl-grid">
       <ul>
-          <cmail-list-item *ngFor="let email of getEmails()" [email]="email" (eventoRemover)="handleRemoverEmail($event) "></cmail-list-item>
+          <cmail-list-item  [routerLink]="['corpo/', email.id]" *ngFor="let email of getEmails() | filtroPorAssunto:valorFiltro" [email]="email" (eventoRemover)="handleRemoverEmail($event) "></cmail-list-item>
       </ul>
       
       <!-- Floating Multiline Textfield -->

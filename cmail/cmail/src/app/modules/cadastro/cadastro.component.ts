@@ -5,6 +5,7 @@ import { map, catchError} from 'rxjs/operators';
 import { User } from '../../model/dto/input/user';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { PageService } from 'src/app/services/page.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -25,9 +26,10 @@ export class CadastroComponent implements OnInit {
     avatar: this.avatar
   })
 
-  constructor(private httpClient: HttpClient, private router: Router, private usuario: UserService) { }
-
+  constructor(private httpClient: HttpClient, private router: Router, private usuario: UserService, private pageService: PageService) { }
+  
   ngOnInit() {
+    this.pageService.definirTitulo('Cadastro');
   }
 
   handleCadastroUsuario() {

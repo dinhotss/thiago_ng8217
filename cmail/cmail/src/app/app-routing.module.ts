@@ -8,7 +8,9 @@ const listaDeRotas: Routes = [
     { path: 'login/:username', loadChildren: 'src/app/modules/login/login.module#LoginModule' },
     { path: 'cadastro', loadChildren: "src/app/modules/cadastro/cadastro.module#CadastroModule" },
     { path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule', canActivate: [AuthGuard] },
-    { path: '**', redirectTo: 'login'}
+    { path: 'inbox/corpo', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule', canActivate: [AuthGuard] },
+    { path: 'inbox/corpo/:id', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule', canActivate: [AuthGuard] },
+    //{ path: '**', redirectTo: 'login'}
 ]
 
 @NgModule({

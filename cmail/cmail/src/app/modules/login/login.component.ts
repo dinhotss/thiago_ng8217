@@ -20,8 +20,12 @@ export class LoginComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
+    
+    document.querySelector('title').textContent = 'Login';
+    
     if(this.activeRoute.snapshot.params) 
       this.login.email = this.activeRoute.snapshot.params.username;
+   
   }
   
   handleLogin (formLogin: NgForm) {

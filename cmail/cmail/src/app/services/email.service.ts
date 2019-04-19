@@ -24,7 +24,7 @@ export class EmailService {
 
   buscar() {
     return this.httpCliente.get(this.api, {headers: this.cabecalho}).pipe(
-      map((resposta: any[]) =>
+      map((resposta: Email[]) =>
           resposta.map(email => {
             return new Email(email);
           })

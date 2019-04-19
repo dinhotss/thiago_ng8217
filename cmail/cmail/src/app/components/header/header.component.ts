@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from 'src/app/services/login.service';
+import { PageService } from 'src/app/services/page.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
     selector: 'cmail-header',
@@ -14,10 +16,15 @@ export class HeaderComponent implements OnInit {
     url: string = "http://placehold.it/48x48";
     nome: string = "Pessoa de Tal";
     email: string = "pesso.al@cmail.br";
+    titulo: string = 'Cmail';
     loginService: LoginService;
 
-    constructor(private _loginService: LoginService) {
+    constructor(private _loginService: LoginService, private pageService: PageService, private headerService: HeaderService) {
         this.loginService = _loginService;
+        pageService.getTitulo().subscribe(titulo => {
+            this.titulo = titulo + ' - Cmail'
+            document.querySelector('title').textContent = this.titulo;
+        });
     }
 
     ngOnInit(): void {
@@ -42,6 +49,10 @@ export class HeaderComponent implements OnInit {
 
     get isMenuOpen() {
         return this._isMenuOpen;
+    }
+
+    handleChange(evento) {
+        this.headerService.setValorFiltro(evento.target.value);
     }
 
 }
